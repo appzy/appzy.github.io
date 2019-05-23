@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="appzy">
+<meta name="baidu-site-verification" content="s8Pe1TBqyy">
+
+
+
+<meta name="description" content="整理一些常见的正则表达式（附可视化链接）">
+<meta name="keywords" content="正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可视化正则表达式整理">
+<meta property="og:url" content="http://appzy.vip/2016/06/15/可视化正则表达式/index.html">
+<meta property="og:site_name" content="appzy">
+<meta property="og:description" content="整理一些常见的正则表达式（附可视化链接）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://appzy.vip/images/sfzhm.png">
+<meta property="og:updated_time" content="2016-06-15T03:25:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="可视化正则表达式整理">
+<meta name="twitter:description" content="整理一些常见的正则表达式（附可视化链接）">
+<meta name="twitter:image" content="http://appzy.vip/images/sfzhm.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="appzy" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>可视化正则表达式整理 | appzy</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+  <style type="text/css">
+  .div_right_bottom {
+  width: 200px;
+  top: 50%;
+  right: 0px;
+  position: fixed;
+  margin-top: -100px;
+  _position: absolute;
+}
+</style>
+</head></html>
+<body>
+<div class="div_right_bottom" style="z-index:99" align="center">
+  <img src="http://appzy.vip/images/csyl.jpg" height="180px" width="180px">
+  微信公众号
+  </div>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">appzy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">不为模糊不清的未来担忧，只为清清楚楚的现在努力。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/appzy" title="GitHub"></a>
+                            
+                                <a class="fa Coding" href="https://coding.net/u/appzy/project" title="Coding"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/b2d0a8ba449b/timeline" title="简书"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/le-hu-95-55/activities" title="知乎"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" href="mailto:http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=PAkNDgsKBQ4MCnxNTRJfU1E" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/login.php" title="新浪微博"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidPay/">AndroidPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/">Singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-面试/">android 面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码混淆/">代码混淆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设备信息/">设备信息</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://appzy.vip">appzy</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://appzy.github.io/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">Make progress every day and Never give up......</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">appzy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">appzy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">不为模糊不清的未来担忧，只为清清楚楚的现在努力。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/appzy" title="GitHub"></a>
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/appzy/project" title="Coding"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/b2d0a8ba449b/timeline" title="简书"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/le-hu-95-55/activities" title="知乎"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" target="_blank" href="mailto:http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=PAkNDgsKBQ4MCnxNTRJfU1E" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/login.php" title="新浪微博"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-可视化正则表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/15/可视化正则表达式/" class="article-date">
+      <time datetime="2016-06-15T03:25:00.000Z" itemprop="datePublished">2016-06-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+      可视化正则表达式整理
+    </h1>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
+    </div>
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>整理一些常见的正则表达式（附可视化链接）<br><img src="http://appzy.vip/images/sfzhm.png" alt="image"><br><a id="more"></a></p>
+<p>数字相关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_N_1 = &quot;^[0-9]*$&quot;;// 数字</span><br><span class="line">public static final String P_N_2 = &quot;^\\d&#123;3&#125;$&quot;;// 3为数字</span><br><span class="line">public static final String P_N_3 = &quot;^\\d&#123;3,&#125;$&quot;;// 至少3位数字</span><br><span class="line">public static final String P_N_4 = &quot;^\\d&#123;3,5&#125;$&quot;;// M之N位数字</span><br><span class="line">public static final String P_N_6 = &quot;^-?[1-9]\\d*$&quot;;// 整数</span><br><span class="line">public static final String P_N_7 = &quot;^[1-9]\\d*$&quot;;// 正整数</span><br><span class="line">public static final String P_N_8 = &quot;^-[1-9]\\d*$&quot;;// 负整数</span><br></pre></td></tr></table></figure>
+<p>字符串相关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_S_0 = &quot;[\\u4e00-\\u9fa5]&quot;;// 中文</span><br><span class="line">public static final String P_S_1 = &quot;^.&#123;3,20&#125;$&quot;;// 长度为M至N的所有字符</span><br><span class="line">public static final String P_S_2 = &quot;^[A-Za-z]+$&quot;;// 纯英文字母</span><br><span class="line">public static final String P_S_3 = &quot;^[A-Z]+$&quot;;// 纯大写英文字母</span><br><span class="line">public static final String P_S_4 = &quot;^[a-z]+$&quot;;// 纯小写英文字母</span><br><span class="line">public static final String P_S_5 = &quot;^[A-Za-z0-9]+$&quot;;// 数字和英文字母</span><br><span class="line">public static final String P_S_6 = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9_]+$&quot;;// 中文、英文、数字或下划线</span><br><span class="line">public static final String P_S_7 = &quot;^\\\\w+$&quot;;// 中文、英文、数字或下划线</span><br><span class="line">public static final String P_S_8 = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9]&#123;2,20&#125;$&quot;;// 中文、英文、数字[不包括下划线]</span><br><span class="line">public static final String P_S_9 = &quot;^(f|ht)&#123;1&#125;(tp|tps):\\\\/\\\\/([\\\\w-]+\\\\.)+[\\\\w-]+(\\\\/[\\\\w- ./?%&amp;=]*)?&quot;;// 赛选字符串中的URL</span><br></pre></td></tr></table></figure>
+<p>密码相关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_P_0 = &quot;^(?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z]).&#123;8,10&#125;$&quot;;// 密码强度</span><br><span class="line">public static final String P_P_1 = &quot;^[A-Za-z0-9]+$&quot;;// 英文&amp;数字</span><br><span class="line">public static final String P_P_2 = &quot;^[A-Za-z0-9]&#123;4,40&#125;$&quot;;// 英文&amp;数字</span><br><span class="line">public static final String P_P_3 = &quot;^\\w+$ 或 ^\\w&#123;3,20&#125;$&quot;;// 数字、英文字母或下划线</span><br><span class="line">public static final String P_P_4 = &quot;^[a-zA-Z]\\w&#123;5,17&#125;$&quot;;// 密码【以字母开头，长度在6~18之间，只能包含字母、数字和下划线】</span><br><span class="line">public static final String P_P_5 = &quot;^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).&#123;8,10&#125;$&quot;;// 强密码【必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间】</span><br></pre></td></tr></table></figure>
+<p>时间相关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_T_0 = &quot;^\\d&#123;4&#125;-\\d&#123;1,2&#125;-\\d&#123;1,2&#125;&quot;;// 日期格式</span><br><span class="line">public static final String P_T_1 =</span><br><span class="line">        &quot;^(?:(?!0000)[0-9]&#123;4&#125;-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]&#123;2&#125;(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$\n&quot;;//校验日期 【“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。】</span><br></pre></td></tr></table></figure>
+<p>其他</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_O_1  = &quot;^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$&quot;;// Email</span><br><span class="line">public static final String P_O_2  = &quot;[\\\\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+(?:\\\\.[\\\\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+)*@(?:[\\\\w](?:[\\\\w-]*[\\\\w])?\\\\.)+[\\\\w](?:[\\\\w-]*[\\\\w])?&quot;;// Email</span><br><span class="line">public static final String P_O_3  = &quot;[a-zA-Z0-9][-a-zA-Z0-9]&#123;0,62&#125;(/.[a-zA-Z0-9][-a-zA-Z0-9]&#123;0,62&#125;)+/.?&quot;;// 域名</span><br><span class="line">public static final String P_O_4  = &quot;^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d&#123;8&#125;$&quot;;// 手机号码</span><br><span class="line">public static final String P_O_5  = &quot;^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\\\d&#123;8&#125;$&quot;;// 手机号码</span><br><span class="line">public static final String P_O_6  = &quot;^\\d&#123;15&#125;|\\d&#123;18&#125;$&quot;;// 身份证号</span><br><span class="line">public static final String P_O_7  = &quot;^[1-9]\\\\d&#123;7&#125;((0\\\\d)|(1[0-2]))(([0|1|2]\\\\d)|3[0-1])\\\\d&#123;3&#125;$&quot;;// 15位身份证号</span><br><span class="line">public static final String P_O_8  = &quot;^[1-9]\\\\d&#123;5&#125;[1-9]\\\\d&#123;3&#125;((0\\\\d)|(1[0-2]))(([0|1|2]\\\\d)|3[0-1])\\\\d&#123;3&#125;([0-9]|X)$&quot;;// 18位身份证号</span><br><span class="line">public static final String P_0_9  = &quot;^[0-9]+(.[0-9]&#123;2&#125;)?$&quot;;// 金额校验，精确到2位小数</span><br><span class="line">public static final String P_0_10 = &quot;\\\\&lt; *[img][^=XXFN&#125;*[src] *= *[\\\\\&quot;\\\\&apos;]&#123;0,1&#125;(&#123;FNXX=]*)&quot;;// 获取网页中的图片信息</span><br><span class="line">public static final String P_0_11 = &quot;[1-9][0-9]\\&#123;4,\\&#125;&quot;;// QQ号</span><br></pre></td></tr></table></figure>
+<p>判断是否匹配正则<br>判定规则<br>待判定字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static boolean isMatch(String regex, CharSequence str) &#123;</span><br><span class="line">    return str != null &amp;&amp; str.length() &gt; 0 &amp;&amp; Pattern.matches(regex, str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后奉上：（<a href="https://jex.im/regulex/#!embed=false&amp;flags=&amp;re=" target="_blank" rel="noopener">可视化正则链接</a>)</p>
+      
+    </div>
+    
+  </div>
+  
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/15/可视化正则表达式/">可视化正则表达式整理</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">appzy</a></p>
+        <p><span>发布时间:</span>2016-06-15, 11:25:00</p>
+        <p><span>最后更新:</span>2016-06-15, 11:25:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/15/可视化正则表达式/" title="可视化正则表达式整理">http://appzy.vip/2016/06/15/可视化正则表达式/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://appzy.vip/2016/06/15/可视化正则表达式/　　作者: appzy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/02/11/设计模式之单例模式/">
+                    设计模式之单例模式
+                </a>
+            </div>
+        
+        
+    </nav>
+  
+</article>
+<div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+    <div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"可视化正则表达式整理　| appzy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+    
+
+
+<div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/02/11/设计模式之单例模式/" title="上一篇: 设计模式之单例模式">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/jQuery夜晚天空满天星星闪烁动画/">jQuery夜晚天空满天星星闪烁动画（附源码）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Android 接入微信支付宝支付/">Android 接入微信支付宝支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/DeviceInfo采集android设备信息工具/">DeviceInfo采集android设备信息工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/25/Android 内存优化/">Android 内存优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/20/Android代码混淆干货/">Android代码混淆干货</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/webview详解和常见的问题/">webview详解和常见的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Android面试总结/">Android面试总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Android面试总结(问答)/">Android面试总结(问答篇)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/11/设计模式之单例模式/">设计模式之单例模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/15/可视化正则表达式/">可视化正则表达式整理</a></li></ul>
+
+
+    <script>
+        
+    </script></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2019 appzy
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架" rel="external nofollow">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5" rel="external nofollow">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    <script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+<script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide()" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>

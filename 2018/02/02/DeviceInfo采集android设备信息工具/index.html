@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="appzy">
+<meta name="baidu-site-verification" content="s8Pe1TBqyy">
+
+
+
+<meta name="description" content="采集Android设备信息，以Json形式输出 可自由定制要采集的设备类型，显示的设备信息详情等">
+<meta name="keywords" content="Android,Java,设备信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeviceInfo采集android设备信息工具">
+<meta property="og:url" content="http://appzy.vip/2018/02/02/DeviceInfo采集android设备信息工具/index.html">
+<meta property="og:site_name" content="appzy">
+<meta property="og:description" content="采集Android设备信息，以Json形式输出 可自由定制要采集的设备类型，显示的设备信息详情等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jitpack.io/v/appzy/DeviceInfo.svg">
+<meta property="og:image" content="https://img.shields.io/github/issues/appzy/DeviceInfo.svg">
+<meta property="og:updated_time" content="2018-02-02T02:07:58.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DeviceInfo采集android设备信息工具">
+<meta name="twitter:description" content="采集Android设备信息，以Json形式输出 可自由定制要采集的设备类型，显示的设备信息详情等">
+<meta name="twitter:image" content="https://jitpack.io/v/appzy/DeviceInfo.svg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="appzy" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>DeviceInfo采集android设备信息工具 | appzy</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+  <style type="text/css">
+  .div_right_bottom {
+  width: 200px;
+  top: 50%;
+  right: 0px;
+  position: fixed;
+  margin-top: -100px;
+  _position: absolute;
+}
+</style>
+</head></html>
+<body>
+<div class="div_right_bottom" style="z-index:99" align="center">
+  <img src="http://appzy.vip/images/csyl.jpg" height="180px" width="180px">
+  微信公众号
+  </div>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">appzy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">不为模糊不清的未来担忧，只为清清楚楚的现在努力。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/appzy" title="GitHub"></a>
+                            
+                                <a class="fa Coding" href="https://coding.net/u/appzy/project" title="Coding"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/b2d0a8ba449b/timeline" title="简书"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/le-hu-95-55/activities" title="知乎"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" href="mailto:http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=PAkNDgsKBQ4MCnxNTRJfU1E" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/login.php" title="新浪微博"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidPay/">AndroidPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/">Singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-面试/">android 面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码混淆/">代码混淆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设备信息/">设备信息</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://appzy.vip">appzy</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://appzy.github.io/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">Make progress every day and Never give up......</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">appzy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">appzy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">不为模糊不清的未来担忧，只为清清楚楚的现在努力。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/appzy" title="GitHub"></a>
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/appzy/project" title="Coding"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/b2d0a8ba449b/timeline" title="简书"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/le-hu-95-55/activities" title="知乎"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa Email" target="_blank" href="mailto:http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=PAkNDgsKBQ4MCnxNTRJfU1E" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/login.php" title="新浪微博"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-DeviceInfo采集android设备信息工具" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/02/DeviceInfo采集android设备信息工具/" class="article-date">
+      <time datetime="2018-02-02T02:07:58.016Z" itemprop="datePublished">2018-02-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+      DeviceInfo采集android设备信息工具
+    </h1>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设备信息/">设备信息</a></li></ul>
+    </div>
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
+<li>采集Android设备信息，以Json形式输出</li>
+<li>可自由定制要采集的设备类型，显示的设备信息详情等<a id="more"></a>
+<h2 id="库介绍"><a href="#库介绍" class="headerlink" title="库介绍"></a>库介绍</h2></li>
+</ul>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>采集Android设备信息，以Json形式输出</p>
+<p>可自由定制要采集的设备类型，显示的设备信息详情等</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>通过继承<code>BaseDeviceInfoCollector</code>类，配合<code>DeviceInfoManager</code>以获取任意设备信息</li>
+<li>通过<code>DeviceInfoManager</code>管理每个设备信息采集器（下简称：Collector），可自由添加Collector，以同时采集N多种软硬件设备信息</li>
+<li>Collector分为自动采集和手动采集两种采集方式。<ul>
+<li>自动采集：Manager控制自发进行的采集</li>
+<li>手动采集：需要用户参与交互的数据采集过程</li>
+</ul>
+</li>
+<li>Manager管理的多个Collector做并发自动采集，手动采集可以配置在自动采集动作结束后自行开始</li>
+<li>每个Collector独立管理各自所需要的权限，在Manager中统一申请（SDK_VERSION &gt;= 23）</li>
+<li>可选择获取所有的模块的设备信息（Json），也可以选择只输出单一模块（Json）</li>
+<li>提供丰富的状态回调接口<code>DeviceInfoCollectListener</code>，可以监听采集结束等各种状态</li>
+</ul>
+<h2 id="输出示例"><a href="#输出示例" class="headerlink" title="输出示例"></a>输出示例</h2><ul>
+<li>默认输出：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;board&quot;: &#123;&quot;boardName&quot;: &quot;MSM8939&quot;&#125;,</span><br><span class="line">    &quot;sim&quot;: [&#123;</span><br><span class="line">        &quot;dataState&quot;: &quot;0&quot;,</span><br><span class="line">        &quot;imsi&quot;: &quot;460036820263837&quot;,</span><br><span class="line">        &quot;isNetworkRoaming&quot;: &quot;false&quot;,</span><br><span class="line">        &quot;networkOperatorName&quot;: &quot;China Telecom&quot;,</span><br><span class="line">        &quot;networkType&quot;: &quot;14&quot;,</span><br><span class="line">        &quot;phoneType&quot;: &quot;2&quot;,</span><br><span class="line">        &quot;simCountryIso&quot;: &quot;cn&quot;,</span><br><span class="line">        &quot;simOperator&quot;: &quot;46003&quot;,</span><br><span class="line">        &quot;simSerialNumber&quot;: &quot;89860315844110607274&quot;,</span><br><span class="line">        &quot;simState&quot;: &quot;0&quot;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>自定义设备信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DeviceInfoManager.NewInstance(this)</span><br><span class="line">        .addCollector(new PhoneBasicInfoCollector(this, &quot;basic&quot;))       //Andorid设备基本信息（PhoneBasicInfoCollector）</span><br><span class="line">        .addCollector(new SimInfoCollector(this, &quot;sim&quot;))                //Sim卡信息（SimInfoCollector）同时识别多张Sim卡</span><br><span class="line">        .addCollector(new CpuInfoCollector(this, &quot;cpu&quot;))                //Cpu信息（CpuInfoCollector）</span><br><span class="line">        .addCollector(new BoardInfoCollector(this, &quot;board&quot;))            //主板信息（BoardInfoCollector）</span><br><span class="line">        .addCollector(new BatteryInfoCollector(this, &quot;battery&quot;))        //电池信息（BatteryInfoCollector）</span><br><span class="line">        .addCollector(new StorageInfoCollector(this, &quot;storage&quot;))        //存储信息（RAM &amp; SD）（StorageInfoCollector）</span><br><span class="line">        .addCollector(new CameraInfoCollector(this, &quot;camera&quot;, true))    //摄像头信息（CameraInfoCollector）</span><br><span class="line">        .addCollector(new ScreenInfoCollector(this, &quot;screen&quot;))          //屏幕信息（ScreenInfoCollector）</span><br><span class="line">        .addCollector(new UiInfoCollector(this, &quot;ui&quot;))                  //Ui信息（UiInfoCollector）</span><br><span class="line">        .addCollector(new SensorInfoCollector(this, &quot;sensor&quot;))          //传感器列表（SensorInfoCollector）</span><br><span class="line">        .addCollector(new NfcInfoCollector(this, &quot;nfc&quot;))                //NFC信息（NfcInfoCollector）</span><br><span class="line">        .addCollector(new SystemInfoCollector(this, &quot;system&quot;))          //系统相关信息（Build.prop等）</span><br><span class="line">        .autoStartManualCollection(true)</span><br><span class="line">        .bindListener(mDeviceInfoCollectListener)</span><br><span class="line">        .start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当然也可以通过重写每个Collector的<code>public String getJsonInfo();</code>以自定义Json的输出内容</p>
+</li>
+</ul>
+<h2 id="目前可获取的设备信息（只作为模板用途，建议使用时自行定制）"><a href="#目前可获取的设备信息（只作为模板用途，建议使用时自行定制）" class="headerlink" title="目前可获取的设备信息（只作为模板用途，建议使用时自行定制）"></a>目前可获取的设备信息（只作为模板用途，建议使用时自行定制）</h2><ul>
+<li>Andorid设备基本信息（PhoneBasicInfoCollector）</li>
+<li>Sim卡信息（SimInfoCollector）<ul>
+<li>同时识别多张Sim卡    </li>
+</ul>
+</li>
+<li>主板信息（BoardInfoCollector）</li>
+<li>Cpu信息（CpuInfoCollector）</li>
+<li>电池信息（BatteryInfoCollector）</li>
+<li>屏幕信息（ScreenInfoCollector）</li>
+<li>NFC信息（NfcInfoCollector）</li>
+<li>传感器列表（SensorInfoCollector）</li>
+<li>摄像头信息（CameraInfoCollector）</li>
+<li>存储信息（RAM &amp; SD）（StorageInfoCollector）</li>
+<li>Ui信息（UiInfoCollector）</li>
+<li>系统相关信息（Build.prop等）</li>
+</ul>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="添加依赖库"><a href="#添加依赖库" class="headerlink" title="添加依赖库"></a>添加依赖库</h3><p><a href="https://jitpack.io/#appzy/DeviceInfo" target="_blank" rel="noopener"><img src="https://jitpack.io/v/appzy/DeviceInfo.svg" alt=""></a><br><a href="https://github.com/appzy/DeviceInfo/issues" target="_blank" rel="noopener"><img src="https://img.shields.io/github/issues/appzy/DeviceInfo.svg" alt="GitHub issues"></a></p>
+<blockquote>
+<p>库版本号 <em>version</em> 请看上方 <strong>JitPack</strong> 的最新版本号，如<code>v1.0.2</code>，并不是 ~<em>xxx</em>~ （推荐使用最新版）</p>
+</blockquote>
+<h4 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h4><ul>
+<li><p>Step 1.Add it in your root build.gradle at the end of repositories</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">	repositories &#123;</span><br><span class="line">		...</span><br><span class="line">		maven &#123; url &apos;https://jitpack.io&apos; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Step 2.Add the dependency</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">       	compile &apos;com.github.guyuepeng:DeviceInfo:xxx&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h4><ul>
+<li><p>Step 1.Add it in your root build.gradle at the end of repositories</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;</span><br><span class="line">	&lt;repository&gt;</span><br><span class="line">	    &lt;id&gt;jitpack.io&lt;/id&gt;</span><br><span class="line">	    &lt;url&gt;https://jitpack.io&lt;/url&gt;</span><br><span class="line">	&lt;/repository&gt;</span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Step 2.Add the dependency</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.github.guyuepeng&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;DeviceInfo&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;xxx&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="拓展自定义Collector"><a href="#拓展自定义Collector" class="headerlink" title="拓展自定义Collector"></a>拓展自定义Collector</h4><p>通过继承<code>BaseDeviceInfoCollector</code>抽象类进行功能拓展，以采集更多信息，或输出自定义的Json内容</p>
+<ul>
+<li><code>public DemoCollector(Context context, String collectorName)</code>中的<code>collectorName</code></li>
+<li><code>public abstract boolean needCollectManually();</code>返回自定义Collector是否需要手动收集</li>
+<li><code>public abstract String[] getRequiredPermissions();</code>返回自定义Collector所需要的权限（每个Collector独立管理权限，Manager统一申请）</li>
+<li><code>protected abstract void doCollectAutomatically();</code>Collector做自动采集的方法</li>
+<li><code>protected abstract void doCollectManually();</code>Collector做手动采集的方法，若采用Manager统一管理，需要<code>needCollectManually()</code>的返回值为<code>true</code>此方法才会被调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package ltns.deviceinfolib.collector;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @date 创建时间：2018/1/8</span><br><span class="line"> * @author appzy</span><br><span class="line"> * @Description</span><br><span class="line"> * @version</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class DemoCollector extends BaseDeviceInfoCollector &#123;</span><br><span class="line">    public DemoCollector(Context context, String collectorName) &#123;</span><br><span class="line">        super(context, collectorName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean needCollectManually() &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String[] getRequiredPermissions() &#123;</span><br><span class="line">        return new String[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doCollectAutomatically() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doCollectManually() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="通过Manager管理多个Collector"><a href="#通过Manager管理多个Collector" class="headerlink" title="通过Manager管理多个Collector"></a>通过Manager管理多个Collector</h4><p>为了代码简洁易读，我把它设计成这样：（不知道这样写会不会违背什么设计模式，如果有请issues告诉我，谢谢:D）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DeviceInfoManager.NewInstance(this)</span><br><span class="line">                .addCollector(new BoardInfoCollector(MainActivity.this, &quot;board&quot;))</span><br><span class="line">                .addCollector(new SimInfoCollector(MainActivity.this, &quot;sim&quot;))</span><br><span class="line">                .autoStartManualCollection(true)</span><br><span class="line">                .bindListener(mDeviceInfoCollectListener)</span><br><span class="line">                .start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>addCollector(BaseDeviceInfoCollector)</code>添加一个新的Collector到Manager中</li>
+<li><code>autoStartManualCollection(boolean)</code>默认是true，自动采集全部完成后立即开启手动采集队列</li>
+</ul>
+<p>在DeviceInfoCollectListener中监听采集状态：</p>
+<ul>
+<li><code>mDeviceInfoManager.getDeviceJsonInfo();</code>方法获取到Manager中所有Collector采集到的信息</li>
+<li><code>mCollector.getJsonInfo();</code>方法获取单个Collector中的信息</li>
+<li><code>void onStart();</code>Manager调用start()时回调</li>
+<li><code>void onSingleSuccess(BaseDeviceInfoCollector mCollector);</code>当有某个Collector成功采集到信息后回调</li>
+<li><code>void onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo);</code>当有某个Collector采集信息失败后回调（并不一定没有采集到数据，已经采集到的信息仍会被以Json格式输出）</li>
+<li><code>void onAllDone(DeviceInfoManager mDeviceInfoManager);</code>通过addCollector(…)方法添加到Manager中的所有Collector均完成采集动作后回调，需要说明的是，不一定是全部采集成功了，只是采集动作完成了</li>
+<li><code>void onAutoAllDone(DeviceInfoManager mDeviceInfoManager);</code>当抛开需要手动收集的收集器，其他的收集器全部完成采集动作后回调</li>
+</ul>
+<blockquote>
+<p>注意：<code>onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo)</code>中也可能存在数据，即<code>mCollector.getJsonInfo();</code>也可能会有数据，具体原因可参考源码和下方 <strong>注意事项</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">private DeviceInfoCollectListener mDeviceInfoCollectListener = new DeviceInfoCollectListener() &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onStart() &#123;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onSingleSuccess(BaseDeviceInfoCollector mCollector) &#123;</span><br><span class="line">       	//mCollector.getJsonInfo();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo) &#123;</span><br><span class="line">       	//mCollector.getJsonInfo();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onAllDone(DeviceInfoManager mDeviceInfoManager) &#123;</span><br><span class="line">       	// mDeviceInfoManager.getDeviceJsonInfo();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onAutoAllDone(DeviceInfoManager mDeviceInfoManager) &#123;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Collector单独跑也是支持的"><a href="#Collector单独跑也是支持的" class="headerlink" title="Collector单独跑也是支持的"></a>Collector单独跑也是支持的</h4><p><em>（支持但不推荐）</em></p>
+<p>当然还是推荐使用Manager :D。就是想要自己单独跑也可以，接着~</p>
+<blockquote>
+<p>特别说明：Collector单独跑需要调用者自行申请权限，因此方便起见，推荐使用Manager统一管理</p>
+</blockquote>
+<p>以<code>BoardInfoCollector</code>为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BoardInfoCollector mCollector = new BoardInfoCollector(MainActivity.this, &quot;board&quot;);</span><br><span class="line">        mCollector.bindObserver(mStateObserver);</span><br><span class="line">        mCollector.startCollectAutomatically();//启动自动采集</span><br><span class="line">        mCollector.startCollectManually();//启动手动采集</span><br></pre></td></tr></table></figure>
+<p>在<code>CollectorStateObserver</code>中监听Collector状态：</p>
+<ul>
+<li><code>void onCollectionSuccess(BaseDeviceInfoCollector mCollector);</code>当手动采集和自动收集均成功完成采集时调用</li>
+<li><code>void onCollectionFailure(BaseDeviceInfoCollector mCollector,String mErrorInfo);</code></li>
+<li><code>void onManualCollectionSuccess(BaseDeviceInfoCollector mCollector,boolean startNext);</code> 当手动参与的信息收集成功时调用。 <strong>P.s.</strong> 此方法回调时会同时回调onCollectionSuccess()，具体看源码</li>
+<li><code>void onManualCollectionFailure(BaseDeviceInfoCollector mCollector,String mErrorInfo,boolean startNext);</code> 当手动参与的信息收集失败时调用。 <strong>P.s.</strong> 此方法回调时会同时回调onCollectionFailure(…)</li>
+<li><code>void onNeedManualCollect(BaseDeviceInfoCollector mCollector);</code>该采集器需要手动采集时回调，具体回调时间请看源码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">private CollectorStateObserver mStateObserver=new CollectorStateObserver() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onCollectionSuccess(BaseDeviceInfoCollector mCollector) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCollectionFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onManualCollectionSuccess(BaseDeviceInfoCollector mCollector, boolean startNext) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onManualCollectionFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo, boolean startNext) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onNeedManualCollect(BaseDeviceInfoCollector mCollector) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>多个Collector的自动采集过程是并发的，运行在子线程中；手动采集方法运行在主线程中</li>
+<li>Manager的监听回调不一定在主线程，因此若操作涉及线程安全，如更新UI，建议使用<code>Handler</code></li>
+<li>Manager的<code>boolean isManualCollectionStartAutomatically</code>默认为true，若要更改需要手动配置<code>autoStartManualCollection(boolean)</code>为false。若设置为false，需要调用<code>startCollectByHand</code>开启手动采集队列；当然也可以单独开启某个Collector的手动采集</li>
+<li><code>onSingleFailure(BaseDeviceInfoCollector mCollector, String mErrorInfo)</code>回调中通过调用<code>mCollector.getJsonInfo();</code>方法仍可以获取到<code>doCollectAutomatically();</code>方法中采集到的自动收集部分的设备信息</li>
+<li>库内内置了<a href="https://github.com/yanzhenjie/AndPermission" target="_blank" rel="noopener">AndPermission</a>库以处理权限相关，<a href="https://github.com/google/gson" target="_blank" rel="noopener">Gson</a>以处理Json相关</li>
+<li>库内所有的Collector实现类只做模板使用，建议使用时自行继承<code>BaseDeviceInfoCollector</code>实现；若要使用库内Collector，需要在 <em>Manifests.xml</em> 中声明对应权限后才能正常使用</li>
+</ul>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li>上传库，提供Sim&amp;Board信息采集支持，更新README（2017.06.23）</li>
+<li>添加CPU、设备基本信息采集支持，更新Sim注释，发布v1.0.1（2017.06.23）</li>
+<li>添加更多信息采集模板类（Battery,NFC,Camera…），统一输出（Json）中key的命名规范（2017.06.26）</li>
+<li>添加了系统描述相关信息的采集，修改了Demo.apk中的Json的显示方式（2017.06.29）</li>
+</ul>
+<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><ul>
+<li>库内使用了 <strong>严振杰</strong> 的<a href="https://github.com/yanzhenjie/AndPermission" target="_blank" rel="noopener">AndPermission</a>库</li>
+</ul>
+<h2 id="扯扯淡"><a href="#扯扯淡" class="headerlink" title="扯扯淡"></a>扯扯淡</h2><ul>
+<li>源码地址：<a href="https://github.com/appzy/DeviceInfo" target="_blank" rel="noopener">https://github.com/appzy/DeviceInfo</a></li>
+<li>如果觉得有用，欢迎Stars</li>
+</ul>
+      
+    </div>
+    
+  </div>
+  
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/02/02/DeviceInfo采集android设备信息工具/">DeviceInfo采集android设备信息工具</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">appzy</a></p>
+        <p><span>发布时间:</span>2018-02-02, 10:07:58</p>
+        <p><span>最后更新:</span>2018-02-02, 10:07:58</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/02/02/DeviceInfo采集android设备信息工具/" title="DeviceInfo采集android设备信息工具">http://appzy.vip/2018/02/02/DeviceInfo采集android设备信息工具/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://appzy.vip/2018/02/02/DeviceInfo采集android设备信息工具/　　作者: appzy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/03/11/Android 接入微信支付宝支付/">
+                    Android 接入微信支付宝支付
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/25/Android 内存优化/">
+                    Android 内存优化
+                </a>
+            </div>
+        
+    </nav>
+  
+</article>
+<div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#库介绍"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x5E93;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x5E93;&#x4ECB;&#x7ECD;"></a>&#x5E93;&#x4ECB;&#x7ECD;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#功能"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#&#x529F;&#x80FD;" class="headerlink" title="&#x529F;&#x80FD;"></a>&#x529F;&#x80FD;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特性"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#&#x7279;&#x6027;" class="headerlink" title="&#x7279;&#x6027;"></a>&#x7279;&#x6027;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输出示例"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x8F93;&#x51FA;&#x793A;&#x4F8B;" class="headerlink" title="&#x8F93;&#x51FA;&#x793A;&#x4F8B;"></a>&#x8F93;&#x51FA;&#x793A;&#x4F8B;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目前可获取的设备信息（只作为模板用途，建议使用时自行定制）"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x76EE;&#x524D;&#x53EF;&#x83B7;&#x53D6;&#x7684;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#xFF08;&#x53EA;&#x4F5C;&#x4E3A;&#x6A21;&#x677F;&#x7528;&#x9014;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x65F6;&#x81EA;&#x884C;&#x5B9A;&#x5236;&#xFF09;" class="headerlink" title="&#x76EE;&#x524D;&#x53EF;&#x83B7;&#x53D6;&#x7684;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#xFF08;&#x53EA;&#x4F5C;&#x4E3A;&#x6A21;&#x677F;&#x7528;&#x9014;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x65F6;&#x81EA;&#x884C;&#x5B9A;&#x5236;&#xFF09;"></a>&#x76EE;&#x524D;&#x53EF;&#x83B7;&#x53D6;&#x7684;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#xFF08;&#x53EA;&#x4F5C;&#x4E3A;&#x6A21;&#x677F;&#x7528;&#x9014;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x65F6;&#x81EA;&#x884C;&#x5B9A;&#x5236;&#xFF09;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x5982;&#x4F55;&#x4F7F;&#x7528;" class="headerlink" title="&#x5982;&#x4F55;&#x4F7F;&#x7528;"></a>&#x5982;&#x4F55;&#x4F7F;&#x7528;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖库"><span class="toc-number">4.1.</span> <span class="toc-text"><a href="#&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x5E93;" class="headerlink" title="&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x5E93;"></a>&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x5E93;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gradle"><span class="toc-number">4.1.1.</span> <span class="toc-text"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven"><span class="toc-number">4.1.2.</span> <span class="toc-text"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">4.2.</span> <span class="toc-text"><a href="#&#x4F7F;&#x7528;&#x65B9;&#x6CD5;" class="headerlink" title="&#x4F7F;&#x7528;&#x65B9;&#x6CD5;"></a>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展自定义Collector"><span class="toc-number">4.2.1.</span> <span class="toc-text"><a href="#&#x62D3;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;Collector" class="headerlink" title="&#x62D3;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;Collector"></a>&#x62D3;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;Collector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过Manager管理多个Collector"><span class="toc-number">4.2.2.</span> <span class="toc-text"><a href="#&#x901A;&#x8FC7;Manager&#x7BA1;&#x7406;&#x591A;&#x4E2A;Collector" class="headerlink" title="&#x901A;&#x8FC7;Manager&#x7BA1;&#x7406;&#x591A;&#x4E2A;Collector"></a>&#x901A;&#x8FC7;Manager&#x7BA1;&#x7406;&#x591A;&#x4E2A;Collector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Collector单独跑也是支持的"><span class="toc-number">4.2.3.</span> <span class="toc-text"><a href="#Collector&#x5355;&#x72EC;&#x8DD1;&#x4E5F;&#x662F;&#x652F;&#x6301;&#x7684;" class="headerlink" title="Collector&#x5355;&#x72EC;&#x8DD1;&#x4E5F;&#x662F;&#x652F;&#x6301;&#x7684;"></a>Collector&#x5355;&#x72EC;&#x8DD1;&#x4E5F;&#x662F;&#x652F;&#x6301;&#x7684;</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>&#x6CE8;&#x610F;&#x4E8B;&#x9879;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新日志"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x66F4;&#x65B0;&#x65E5;&#x5FD7;" class="headerlink" title="&#x66F4;&#x65B0;&#x65E5;&#x5FD7;"></a>&#x66F4;&#x65B0;&#x65E5;&#x5FD7;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#感谢"><span class="toc-number">7.</span> <span class="toc-text"><a href="#&#x611F;&#x8C22;" class="headerlink" title="&#x611F;&#x8C22;"></a>&#x611F;&#x8C22;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扯扯淡"><span class="toc-number">8.</span> <span class="toc-text"><a href="#&#x626F;&#x626F;&#x6DE1;" class="headerlink" title="&#x626F;&#x626F;&#x6DE1;"></a>&#x626F;&#x626F;&#x6DE1;</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+    <div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"DeviceInfo采集android设备信息工具　| appzy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+    
+
+
+<div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/03/11/Android 接入微信支付宝支付/" title="上一篇: Android 接入微信支付宝支付">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/11/25/Android 内存优化/" title="下一篇: Android 内存优化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/jQuery夜晚天空满天星星闪烁动画/">jQuery夜晚天空满天星星闪烁动画（附源码）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Android 接入微信支付宝支付/">Android 接入微信支付宝支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/DeviceInfo采集android设备信息工具/">DeviceInfo采集android设备信息工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/25/Android 内存优化/">Android 内存优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/20/Android代码混淆干货/">Android代码混淆干货</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/webview详解和常见的问题/">webview详解和常见的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Android面试总结/">Android面试总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Android面试总结(问答)/">Android面试总结(问答篇)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/11/设计模式之单例模式/">设计模式之单例模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/15/可视化正则表达式/">可视化正则表达式整理</a></li></ul>
+
+
+    <script>
+        
+    </script></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2019 appzy
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架" rel="external nofollow">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5" rel="external nofollow">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    <script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+<script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide()" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
