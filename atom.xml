@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://appzy.vip/"/>
-  <updated>2019-05-23T09:56:12.320Z</updated>
+  <updated>2019-04-20T11:12:00.000Z</updated>
   <id>http://appzy.vip/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Glide源码分析解读-基于Glide 4.9.0</title>
+    <link href="http://appzy.vip/2019/04/20/Glide%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E8%A7%A3%E8%AF%BB-%E5%9F%BA%E4%BA%8EGlide%204.9.0/"/>
+    <id>http://appzy.vip/2019/04/20/Glide源码分析解读-基于Glide 4.9.0/</id>
+    <published>2019-04-20T11:12:00.000Z</published>
+    <updated>2019-04-20T11:12:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Glide 源码很复杂， 涉及到的东西也很多，这里不能面面俱到，只是把我认为重要的东西介绍了一下，可能还有一些疏漏。&lt;/p&gt;
+&lt;p&gt;首先我将 Glide 分成了几个模块，让大家有个整体的印象，自顶向下的分析源码，从而实现降维打击。&lt;br&gt;按照逻辑功能划分，可以把 Glide 框架大概的分成如下几个部分：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Glide" scheme="http://appzy.vip/tags/Glide/"/>
+    
+  </entry>
   
   <entry>
     <title>jQuery夜晚天空满天星星闪烁动画（附源码）</title>
@@ -30,9 +49,9 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
-    
       <category term="jQuery" scheme="http://appzy.vip/tags/jQuery/"/>
+    
+      <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
     
   </entry>
   
@@ -131,9 +150,9 @@
     </summary>
     
     
-      <category term="webview" scheme="http://appzy.vip/tags/webview/"/>
-    
       <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
+    
+      <category term="webview" scheme="http://appzy.vip/tags/webview/"/>
     
   </entry>
   
@@ -188,25 +207,6 @@
     
     
       <category term="Singleton" scheme="http://appzy.vip/tags/Singleton/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Glide 源码分析解读-基于Glide 4.9.0</title>
-    <link href="http://appzy.vip/2016/06/15/Glide%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E8%A7%A3%E8%AF%BB-%E5%9F%BA%E4%BA%8EGlide4.9.0/"/>
-    <id>http://appzy.vip/2016/06/15/Glide源码分析解读-基于Glide4.9.0/</id>
-    <published>2016-06-15T03:25:00.000Z</published>
-    <updated>2019-06-19T07:10:05.087Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Glide 源码很复杂， 涉及到的东西也很多，这里不能面面俱到，只是把我认为重要的东西介绍了一下，可能还有一些疏漏。&lt;/p&gt;
-&lt;p&gt;首先我将 Glide 分成了几个模块，让大家有个整体的印象，自顶向下的分析源码，从而实现降维打击。&lt;br&gt;按照逻辑功能划分，可以把 Glide 框架大概的分成如下几个部分：&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Glide" scheme="http://appzy.vip/tags/Glide/"/>
     
   </entry>
   
