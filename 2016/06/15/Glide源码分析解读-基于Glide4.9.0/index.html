@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://appzy.vip/img/load_package.png">
 <meta property="og:image" content="https://appzy.vip/img/cache_porcess.png">
 <meta property="og:image" content="https://appzy.vip/img/grouped_linked_map.png">
-<meta property="og:updated_time" content="2019-04-20T11:21:00.000Z">
+<meta property="og:updated_time" content="2019-06-19T07:10:05.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide 源码分析解读-基于Glide 4.9.0">
 <meta name="twitter:description" content="Glide 源码很复杂， 涉及到的东西也很多，这里不能面面俱到，只是把我认为重要的东西介绍了一下，可能还有一些疏漏。 首先我将 Glide 分成了几个模块，让大家有个整体的印象，自顶向下的分析源码，从而实现降维打击。按照逻辑功能划分，可以把 Glide 框架大概的分成如下几个部分：">
@@ -390,7 +390,7 @@
 <h2 id="RequestBuilder"><a href="#RequestBuilder" class="headerlink" title="RequestBuilder"></a>RequestBuilder</h2><hr>
 <p>RequestBuilder 用来构建请求，例如设置 RequestOption、缩略图、加载失败占位图等等。<br>上面说到的 RequestManager 中诸多的 load 重载方法，同样也对应 RequestBuilder 中的重载 load 方法，一般来说 load 方法之后就是调用 into 方法设置 ImageView 或者 Target，into 方法中最后会创建  Request，并启动，这个后面会详细介绍。</p>
 <h2 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h2><hr>
-<p>顾名思义， request 包下面的是封装的请求，里面有一个 Request 接口，估计所有的请求都是基于这个接口的，看一下：</p>
+<p>顾名思义，request 包下面的是封装的请求，里面有一个 Request 接口，估计所有的请求都是基于这个接口的，看一下：</p>
 <p><img src="https://appzy.vip/img/request_method.png" alt="Request"></p>
 <p>接口定义了对请求的开始、结束、状态获取、回收等操作，所以请求中不仅包含基本的信息，还负责管理请求。<br>Request 主要的实现类有三个：</p>
 <ol>
@@ -398,7 +398,7 @@
 <li>ThumbnailRequestCoordinator</li>
 <li>ErrorRequestCoordinator</li>
 </ol>
-<p>一个个看。</p>
+<p>挨个看：</p>
 <h3 id="SingleRequest"><a href="#SingleRequest" class="headerlink" title="SingleRequest"></a>SingleRequest</h3><hr>
 <p>这个类负责执行请求并将结果反映到 Target 上。</p>
 <p>当我们使用 Glide 加载图片时，会先根据 Target 类型创建不同的 Target，然后 RequestBuilder 将这个 target 当做参数创建 Request 对象，Request 与 Target 就是这样关联起来的。</p>
@@ -583,7 +583,7 @@
         <p><span>本文标题:</span><a href="/2016/06/15/Glide源码分析解读-基于Glide4.9.0/">Glide 源码分析解读-基于Glide 4.9.0</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">appzy</a></p>
         <p><span>发布时间:</span>2016-06-15, 11:25:00</p>
-        <p><span>最后更新:</span>2019-04-20, 19:21:00</p>
+        <p><span>最后更新:</span>2019-06-19, 15:10:05</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/06/15/Glide源码分析解读-基于Glide4.9.0/" title="Glide 源码分析解读-基于Glide 4.9.0">http://appzy.vip/2016/06/15/Glide源码分析解读-基于Glide4.9.0/</a>
             <span class="copy-path" data-clipboard-text="原文: http://appzy.vip/2016/06/15/Glide源码分析解读-基于Glide4.9.0/　　作者: appzy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
