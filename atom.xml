@@ -49,9 +49,9 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
-    
       <category term="jQuery" scheme="http://appzy.vip/tags/jQuery/"/>
+    
+      <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
     
   </entry>
   
@@ -150,9 +150,9 @@
     </summary>
     
     
-      <category term="webview" scheme="http://appzy.vip/tags/webview/"/>
-    
       <category term="JavaScript" scheme="http://appzy.vip/tags/JavaScript/"/>
+    
+      <category term="webview" scheme="http://appzy.vip/tags/webview/"/>
     
   </entry>
   
