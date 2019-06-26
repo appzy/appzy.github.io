@@ -275,9 +275,9 @@
         
         <tags>
             
-            <tag> JavaScript </tag>
-            
             <tag> jQuery </tag>
+            
+            <tag> JavaScript </tag>
             
         </tags>
         
@@ -294,7 +294,7 @@
 <li>注册账号，创建应用，开通微信支付，这些大家都会的。</li>
 </ul>
 <h3 id="微信商户平台"><a href="#微信商户平台" class="headerlink" title="微信商户平台"></a>微信商户平台</h3><p>APP支付文档<br><a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1</a> ，<br>如果仅按照文档来，保证每次支付结果都是-1，对，只有-1，<br>没有任何其他信息，不得不说，坑比。</p>
-<p>APP支付时序图<br>大概了解下支付流程：<br><img src="http://appzy.vip/images/apply.png" alt="支付流程"></p>
+<p>APP支付时序图<br>大概了解下支付流程：<br><img src="https://appzy.vip/images/apply.png" alt="支付流程"></p>
 <h2 id="接入SDK"><a href="#接入SDK" class="headerlink" title="接入SDK"></a>接入SDK</h2><h3 id="引入libs"><a href="#引入libs" class="headerlink" title="引入libs"></a>引入libs</h3><p>SDK下载：<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=11_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=11_1</a> ，<br>将libammsdk.jar放到libs文件夹下</p>
 <h3 id="配置debug签名"><a href="#配置debug签名" class="headerlink" title="配置debug签名"></a>配置debug签名</h3><p>创建应用需要填写应用签名，配置在debug下直接用的正式的key，这样就不用每次打包才能调起微信客户端</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            storeFile file(&quot;你的keystore路径&quot;)</span><br><span class="line">            storePassword &quot;xxx&quot;</span><br><span class="line">            keyAlias &quot;xxx&quot;</span><br><span class="line">            keyPassword &quot;xxx&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        release &#123;</span><br><span class="line">            storeFile file(&quot;你的keystore路径&quot;)</span><br><span class="line">            storePassword &quot;xxx&quot;</span><br><span class="line">            keyAlias &quot;xxx&quot;</span><br><span class="line">            keyPassword &quot;xxx&quot;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -305,10 +305,10 @@
 <h3 id="支付接口调用"><a href="#支付接口调用" class="headerlink" title="支付接口调用"></a>支付接口调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 微信支付</span><br><span class="line"> * @param data接口返回</span><br><span class="line"> */</span><br><span class="line">private void weixinPay(String data) &#123;</span><br><span class="line">    // 通过WXAPIFactory工厂，获取IWXAPI的实例</span><br><span class="line">    IWXAPI api = WXAPIFactory.createWXAPI(this, WEIXIN_APP_ID);</span><br><span class="line">    // 将该app注册到微信</span><br><span class="line">    api.registerApp(WEIXIN_APP_ID);</span><br><span class="line">    LogUtil.d(&quot;data=&quot; + data);</span><br><span class="line">    try &#123;</span><br><span class="line">        JSONObject json = new JSONObject(data);</span><br><span class="line">        PayReq req = new PayReq();</span><br><span class="line">        req.appId = json.getString(&quot;appid&quot;);</span><br><span class="line">        req.partnerId = json.getString(&quot;partnerid&quot;);</span><br><span class="line">        req.prepayId = json.getString(&quot;prepayid&quot;);</span><br><span class="line">        req.nonceStr = json.getString(&quot;noncestr&quot;);</span><br><span class="line">        req.timeStamp = json.getString(&quot;timestamp&quot;);</span><br><span class="line">        req.packageValue = json.getString(&quot;package&quot;);</span><br><span class="line">        req.sign = json.getString(&quot;sign&quot;);</span><br><span class="line">        req.extData = &quot;app data&quot;; // optional</span><br><span class="line">        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信</span><br><span class="line">        api.sendReq(req);</span><br><span class="line">    &#125; catch (JSONException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>为了安全，APP端调起支付的参数需要商户后台系统提供接口返回，<br>参数说明文档：<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&amp;index=2" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&amp;index=2</a></p>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>以为这样就可以调起微信客户端支付了，没有想到一直返回支付结果为-1，<br>没有多余的信息提示，不亏是微信，Android代码就是简洁！<br>我们看到文档返回-1的提示“可能的原因：签名错误、未注册APPID、<br>项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。”，<br>我反复检查签名、APPID均没有错误，后台也确定sign信息正确，<br>哎，我表示很无奈，iOS也调用了，他们提示”支付场景非法“，<br>原来是由于后台之前做web支付，trade_type没有改成APP，<br>改了我这边就能正常调起了。</p>
-<p><img src="http://appzy.vip/images/pay.jpg" alt="image"></p>
+<p><img src="https://appzy.vip/images/pay.jpg" alt="image"></p>
 <h2 id="支付宝接入"><a href="#支付宝接入" class="headerlink" title="支付宝接入"></a>支付宝接入</h2><h3 id="前期准备-1"><a href="#前期准备-1" class="headerlink" title="前期准备"></a>前期准备</h3><p>注册账号，创建应用，开通支付功能，这些也不说了。</p>
 <h3 id="接入文档"><a href="#接入文档" class="headerlink" title="接入文档"></a>接入文档</h3><p><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7386797.0.0.Eky59h&amp;treeId=59&amp;articleId=103563&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7386797.0.0.Eky59h&amp;treeId=59&amp;articleId=103563&amp;docType=1</a></p>
-<h3 id="支付交互流程"><a href="#支付交互流程" class="headerlink" title="支付交互流程"></a>支付交互流程</h3><p><img src="http://appzy.vip/images/jh.png" alt="交互流程"></p>
+<h3 id="支付交互流程"><a href="#支付交互流程" class="headerlink" title="支付交互流程"></a>支付交互流程</h3><p><img src="https://appzy.vip/images/jh.png" alt="交互流程"></p>
 <h3 id="接入SDK-1"><a href="#接入SDK-1" class="headerlink" title="接入SDK"></a>接入SDK</h3><p>SDK下载：<br><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Q5gnm8&amp;treeId=193&amp;articleId=104509&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Q5gnm8&amp;treeId=193&amp;articleId=104509&amp;docType=1</a> ，<br>将alipaySdk-xxxxxxxx.jar包放到libs文件夹下</p>
 <h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><p>添加权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot; /&gt;</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot; /&gt;</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;</span><br></pre></td></tr></table></figure>
@@ -697,9 +697,9 @@
         
         <tags>
             
-            <tag> webview </tag>
-            
             <tag> JavaScript </tag>
+            
+            <tag> webview </tag>
             
         </tags>
         
@@ -1367,7 +1367,7 @@
     <entry>
       <title><![CDATA[可视化正则表达式整理]]></title>
       <url>/2016/06/15/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-      <content type="html"><![CDATA[<p>整理一些常见的正则表达式（附可视化链接）<br><img src="http://appzy.vip/img/sfzhm.png" alt="image"><br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>整理一些常见的正则表达式（附可视化链接）<br><img src="https://appzy.vip/img/sfzhm.png" alt="image"><br><a id="more"></a></p>
 <p>数字相关</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static final String P_N_1 = &quot;^[0-9]*$&quot;;// 数字</span><br><span class="line">public static final String P_N_2 = &quot;^\\d&#123;3&#125;$&quot;;// 3为数字</span><br><span class="line">public static final String P_N_3 = &quot;^\\d&#123;3,&#125;$&quot;;// 至少3位数字</span><br><span class="line">public static final String P_N_4 = &quot;^\\d&#123;3,5&#125;$&quot;;// M之N位数字</span><br><span class="line">public static final String P_N_6 = &quot;^-?[1-9]\\d*$&quot;;// 整数</span><br><span class="line">public static final String P_N_7 = &quot;^[1-9]\\d*$&quot;;// 正整数</span><br><span class="line">public static final String P_N_8 = &quot;^-[1-9]\\d*$&quot;;// 负整数</span><br></pre></td></tr></table></figure>
 <p>字符串相关</p>
